@@ -60,7 +60,7 @@
               }
 
               if (angular.isFunction(redirectTo)) {
-                $state.go(redirectTo(redirectTo(reject), toParams);
+                $state.go(redirectTo(redirectTo(reject), toParams));
               }
             }
           });
@@ -152,11 +152,11 @@
 
             validatingRole.then(function () {
               deferred.resolve();
-            }, function () {
+            }, function (reject) {
               Permission._findMatchingRole(roles, toParams).then(function () {
                 deferred.resolve();
               }, function () {
-                deferred.reject();
+                deferred.reject(reject);
               });
             });
 
