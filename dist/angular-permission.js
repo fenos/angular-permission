@@ -49,14 +49,18 @@
                   .$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
               });
             }
-          }, function () {
+          }, function (reject) {
             if (!$rootScope.$broadcast('$stateChangeStart', toState, toParams, fromState, fromParams).defaultPrevented) {
               $rootScope.$broadcast('$stateChangePermissionDenied', toState, toParams);
 
               // If not authorized, redirect to wherever the route has defined, if defined at all
               var redirectTo = permissions.redirectTo;
-              if (redirectTo) {
+              if (angular.isString(redirectTo)) {
                 $state.go(redirectTo, toParams);
+              }
+
+              if (angular.isFunction(redirectTo)) {
+                $state.go(redirectTo(redirectTo(reject), toParams);
               }
             }
           });
@@ -174,9 +178,9 @@
             Permission._findMatchingRole(roles, toParams).then(function () {
               // Found role match
               deferred.resolve();
-            }, function () {
+            }, function (reject) {
               // No match
-              deferred.reject();
+              deferred.reject(reject);
             });
             return deferred.promise;
           },
