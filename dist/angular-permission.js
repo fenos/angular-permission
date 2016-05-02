@@ -13,7 +13,7 @@
   angular.module('permission', ['ui.router'])
     .run(['$rootScope', 'Permission', '$state', function ($rootScope, Permission, $state) {
       $rootScope.$on('$stateChangeStart',
-      function (event, toState, toParams, fromState, fromParams) {
+      function (event, toState, toParams, fromState, fromParams, transitionOptions) {
         if (toState.$$finishAuthorize) {
           return;
         }
@@ -44,7 +44,7 @@
             // if (!$rootScope.$broadcast('$stateChangeStart', toState, toParams, fromState, fromParams).defaultPrevented) {
               $rootScope.$broadcast('$stateChangePermissionAccepted', toState, toParams);
 
-              $state.go(toState.name, toParams, {notify: false}).then(function() {
+              $state.go(toState.name, toParams, angular.merge({}, transitionOptions, {notify: false, location:'replace'}).then(function() {
                 $rootScope
                   .$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
               });
