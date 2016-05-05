@@ -14,7 +14,7 @@
     .run(['$rootScope', 'Permission', '$state', function ($rootScope, Permission, $state) {
       $rootScope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams, transitionOptions) {
-        if (toState.$$finishAuthorize) {
+        if (toState.$$finishAuthorize || event.defaultPrevented) {
           return;
         }
 
