@@ -62,6 +62,10 @@
               if (angular.isFunction(redirectTo)) {
                 $state.go(redirectTo(redirectTo(reject), toParams));
               }
+
+              if(angular.isString(reject)) {
+                  $state.go(reject, toParams);
+              }
             // }
           });
         }
