@@ -44,7 +44,7 @@
             // if (!$rootScope.$broadcast('$stateChangeStart', toState, toParams, fromState, fromParams).defaultPrevented) {
               $rootScope.$broadcast('$stateChangePermissionAccepted', toState, toParams);
 
-              $state.go(toState.name, toParams, angular.extend({}, transitionOptions, {notify: false, location:'replace'})).then(function() {
+              $state.go(toState.name, toParams, angular.extend({}, transitionOptions, {notify: false, location: true})).then(function() {
                 $rootScope
                   .$broadcast('$stateChangeSuccess', toState, toParams, fromState, fromParams);
               });
