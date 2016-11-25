@@ -51,7 +51,7 @@
             // }
           }, function (reject) {
             // if (!$rootScope.$broadcast('$stateChangeStart', toState, toParams, fromState, fromParams).defaultPrevented) {
-              $rootScope.$broadcast('$stateChangePermissionDenied', toState, toParams);
+              $rootScope.$broadcast('$stateChangePermissionDenied', fromState, fromParams, toState, toParams, permissions);
 
               // If not authorized, redirect to wherever the route has defined, if defined at all
               var redirectTo = permissions.redirectTo;
